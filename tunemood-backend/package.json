@@ -1,0 +1,27 @@
+{
+  "name": "tunemood-backend",
+  "version": "1.0.0",
+  "description": "a mood based song recomendation system",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "keywords": [
+    "tunemood"
+  ],
+  "author": "Tanmay",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^4.11.0",
+    "@tensorflow/tfjs-node-gpu": "^4.13.0",
+    "apos-to-lex-form": "^1.0.5",
+    "audio-decode": "^1.2.3",
+    "csv-parser": "^3.0.0",
+    "essentia.js": "^0.1.3",
+    "express": "^4.18.2",
+    "natural": "^6.8.0",
+    "node-csv": "^0.1.2",
+    "spelling-corrector": "^3.0.0",
+    "stopword": "^2.0.8"
+  }
+}
