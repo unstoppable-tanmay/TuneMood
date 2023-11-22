@@ -1,17 +1,24 @@
-var express = require('express');
+var express = require("express");
+const fs = require("fs");
 
 var app = express();
-const port = 4000
+const port = 4000;
 
-var analyzeRoute = require('./routes/analyze');
+var analyzeRoute = require("./routes/analyze");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/analyze', analyzeRoute);
+app.use("/analyze", analyzeRoute);
 
-app.get('/', (req, res) => res.send('Hello World!'))
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
+app.get("/", async (req, res) =>
+  fs.readFile(
+    "./song-models/danceability/danceability-musicnn-msd-2/model.json",
+    (err, data) => {
+      res.json(JSON.parse(data));
+    }
+  )
+);
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 // https://github.com/RahulGaonkar/Music-Sentiment-Analysis
 // https://blog.logrocket.com/sentiment-analysis-node-js/

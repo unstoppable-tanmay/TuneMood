@@ -21,7 +21,12 @@ export default function Home() {
           <div className="font-poppins text-gray-500 text-2xl select-none">
             Tune Mood
           </div>
-          <div className="song-container flex-1 flex flex-col items-center justify-center w-[700px] max-w-[97%]"></div>
+          <div className="song-container flex-1 flex flex-col items-center justify-center w-[700px] max-w-[97%]">
+            <MusicCard/>
+            <MusicCard/>
+            <MusicCard/>
+            <MusicCard/>
+          </div>
           <div className="flex w-full items-end justify-center gap-2 md:gap-3 flex-wrap text-white">
             <Textarea
               className="textarea text w-full md:w-[70%] h-[100px] md:h-[50px] bg-[#45515734] rounded-md md:rounded-lg border-2 backdrop-blur-sm p-2 px-4 outline-none resize-none max-h-[200px] placeholder:text-white"
@@ -31,9 +36,9 @@ export default function Home() {
               onChange={() => {}}
               placeholder="Hey How Are You."
             />
-            <div className="button w-full md:w-[140px] h-[44px] rounded-md md:rounded-lg border-2 flex items-center justify-center bg-slate-400 cursor-pointer">
+            {/* <div className="button w-full md:w-[140px] h-[44px] rounded-md md:rounded-lg border-2 flex items-center justify-center bg-slate-400 cursor-pointer">
               Send
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

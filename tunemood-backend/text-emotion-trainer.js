@@ -6,7 +6,7 @@ const csvParser = require("csv-parser");
 
 const classifier = new natural.BayesClassifier();
 
-const mood = ['sadness', 'joy', 'love', 'anger', 'fear']
+const mood = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
 
 const trainingData = [];
 
@@ -20,6 +20,7 @@ const fetchTrainingData = (filepath) => {
             for (const element of trainingData) {
                 // console.log(element.text, mood[element.label])
                 classifier.addDocument(element.text, mood[element.label]);
+                // classifier.addDocument(element.text, element.label);
             }
             classifier.train();
             classifier.save("text-emotion-model.json")

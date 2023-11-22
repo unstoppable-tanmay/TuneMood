@@ -1,14 +1,17 @@
 const decode = require("audio-decode");
 const { Essentia, EssentiaWASM, EssentiaModel } = require("essentia.js");
-const fs = require('fs');
+const fs = require('fs')
+const csvParser = require("csv-parser");
 
 const tf = require('@tensorflow/tfjs-node')
 
 const essentia = new Essentia(EssentiaWASM);
 
-const modelURL = "./autotagging/msd/msd-musicnn-1/model.json"
-const musicnn = new EssentiaModel.TensorflowMusiCNN(tf, modelURL);
-musicnn.initialize()
+// const modelURL = "http://localhost:4000/"
+// const musicnn = new EssentiaModel.EssentiaTensorflowJSModel(tf, modelURL);
+
+// musicnn.initialize()
+
 const inputFeatureExtractor = new EssentiaModel.EssentiaTFInputExtractor(EssentiaWASM, "musicnn", false);
 
 
@@ -64,9 +67,23 @@ const findMood = async (filepath) => {
 
 
 const getMood = async () => {
-    // console.log(await findMood('./gulimata.mp3'))
-    // console.log(await findMood('./leo.mp3'))
-    // console.log(await findAudio('./leo.mp3'))
+    // console.log(await findMood('./songs/gulimata.mp3'))
+    // console.log(await findMood('./songs/leo.mp3'))
+    // console.log(await findAudio('./songs/leo.mp3'))
+    var trainingData = []
+    var trainedModel = []
+    fs.createReadStream("./songs/audio_file.csv")
+        .pipe(csvParser())
+        .on("data", (data) => {
+            trainingData.push(data);
+        })
+        .on("end", () => {
+            trainingData.slice(0, 2).forEach(async (val, ind) => {
+                trainedModel.push(val)
+                const features = await findMood("./songs/AUDIO_FILE/" + val.song_name);
+                trainedModel[ind] = { ...val, ...features }
+            })
+        });
 }
 getMood()
 
