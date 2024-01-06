@@ -2,6 +2,7 @@
 
 # dependencies
 /tunemood-backend/songs
+song_processing
 /node_modules
 /.pnp
 .pnp.js

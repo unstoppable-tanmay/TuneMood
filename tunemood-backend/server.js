@@ -1,23 +1,20 @@
 var express = require("express");
 const fs = require("fs");
+const cors = require('cors')
 
 var app = express();
 const port = 4000;
 
-var analyzeRoute = require("./routes/analyze");
+var textTrainedRoute = require("./routes/text_trained");
+const imageRoute = require("./routes/image_trained.");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/analyze", analyzeRoute);
+app.use(cors())
 
-app.get("/", async (req, res) =>
-  fs.readFile(
-    "./song-models/danceability/danceability-musicnn-msd-2/model.json",
-    (err, data) => {
-      res.json(JSON.parse(data));
-    }
-  )
-);
+app.use("/text", textTrainedRoute);
+app.use("/image", imageRoute);
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 // https://github.com/RahulGaonkar/Music-Sentiment-Analysis
