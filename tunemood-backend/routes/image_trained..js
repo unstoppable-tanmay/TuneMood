@@ -38,8 +38,10 @@ imageRoute.route('/').post(upload.single('image'), async function (req, res) {
             .then((result) => {
                 mood = result?.expressions.asSortedArray()[0].expression
                 console.log(mood)
-                csv.mapFile('./songs/data/audio_file.csv', function (err, data) {
-                    res.send(data.filter((ele) => { return ele.mood == song_mapping(result?.expressions.asSortedArray()[0].expression) }))
+                csv.mapFile('../audio_file.csv', function (err, data) {
+                    res.send(data.filter((ele) => { 
+                        return ele.mood == song_mapping(result?.expressions.asSortedArray()[0].expression) 
+                    }))
                 });
             })
             .catch((err) => {
