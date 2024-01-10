@@ -6,7 +6,6 @@ import { useStore } from "../../store/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useYoutube } from "react-youtube-music-player";
-import { Slider } from "antd";
 
 import {
   PauseCircleFilled,
@@ -16,6 +15,8 @@ import {
 } from "@ant-design/icons";
 
 const Page = () => {
+  const URI = 'http://localhost:4000'
+  // const URI = 'http://localhost:4000'
   const router = useRouter();
   // Loader for data
   const [loading, setLoading] = useState(true);
@@ -47,7 +48,7 @@ const Page = () => {
     }
     if (value_state) {
       axios
-        .post("http://localhost:4000/text", { data: value_state })
+        .post(`${URI}/text`, { data: value_state })
         .then((response) => {
           setSongs(response.data);
           console.log(response);
@@ -64,7 +65,7 @@ const Page = () => {
         .then((blob) => {
           formData.append("image", blob);
           axios
-            .post("http://localhost:4000/image", formData, {
+            .post(`${URI}/image`, formData, {
               headers: {
                 "Content-Type": "multipart/form-data",
               },
@@ -167,14 +168,14 @@ const Page = () => {
               alt=""
               className="w-[280px] aspect-square rounded-2xl object-cover"
             />
-            <Slider
+            {/* <Slider
               min={0}
               max={player_duration}
               onChange={(val) => {
                 actions.seekTo(val, false);
               }}
               value={player}
-            />
+            /> */}
             <div className="player flex items-center justify-around w-[70%]">
               <StepBackwardFilled
                 className="text-2xl"
@@ -238,7 +239,7 @@ const Page = () => {
       <div className="bg home w-screen h-screen -z-10 fixed"></div>
       <div className="nav w-screen py-5 flex items-center justify-center font-poppins text-xl text-zinc-100 relative">
         Music Are Medicines
-        <div className="back absolute left-5 cursor-pointer" onClick={() => {}}>
+        <div className="back absolute left-5 cursor-pointer" onClick={() => {router.back()}}>
           {"<"}
         </div>
       </div>

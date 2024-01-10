@@ -3,9 +3,8 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { faceDetect } from "ai-face-detection";
 import Webcam from "react-webcam";
-import { Camera } from "react-camera-pro";
+// import { Camera } from "react-camera-pro";
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -35,7 +34,8 @@ export default function Home() {
   // const [value, setValue] = useState("");
 
   // Camera Data
-  const camera_image = useRef<camera_type | null>(null);
+  // const camera_image = useRef<camera_type | null>(null);
+  const camera_image = useRef<any>(null);
   // const [image, setImage] = useState(null);
 
   // Mic Data
@@ -97,7 +97,19 @@ export default function Home() {
                   className="w-6 h-6 invert"
                 />
               </div>
-              <Camera
+              <Webcam
+                audio={false}
+                height={720}
+                ref={camera_image}
+                screenshotFormat="image/jpeg"
+                width={1280}
+                videoConstraints={{
+                  width: 1280,
+                  height: 720,
+                  facingMode: "user",
+                }}
+              />
+              {/* <Camera
                 ref={camera_image}
                 aspectRatio={1}
                 facingMode="user"
@@ -107,18 +119,19 @@ export default function Home() {
                   switchCamera: undefined,
                   canvas: undefined,
                 }}
-              />
+              /> */}
               {!image_state ? (
                 <div
-                  className="absolute w-[10%] aspect-square rounded-full bg-white z-50 bottom-5 opacity-60 hover:opacity-100 duration-200"
+                  className="absolute w-[10%] aspect-square rounded-full bg-red-500 z-50 bottom-5 opacity-60 hover:opacity-100 duration-200"
                   onClick={() => {
-                    set_image_state(camera_image.current?.takePhoto());
+                    // set_image_state(camera_image.current?.takePhoto());
+                    set_image_state(camera_image.current?.getScreenshot());
                   }}
                 ></div>
               ) : (
                 <div className="absolute flex gap-3 bottom-5 z-50">
                   <div
-                    className="px-4 py-2 rounded-full bg-white opacity-60 hover:opacity-100 duration-200"
+                    className="px-4 py-2 rounded-full bg-red-500 opacity-60 hover:opacity-100 duration-200"
                     onClick={() => {
                       set_image_state(null);
                     }}
@@ -126,7 +139,7 @@ export default function Home() {
                     cancel
                   </div>
                   <Link href={"/music"}>
-                    <div className="px-4 py-2 rounded-full bg-white opacity-60 hover:opacity-100 duration-200">
+                    <div className="px-4 py-2 rounded-full bg-red-500 opacity-60 hover:opacity-100 duration-200">
                       send
                     </div>
                   </Link>
