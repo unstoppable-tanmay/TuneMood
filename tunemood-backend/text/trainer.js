@@ -3,7 +3,7 @@ const readline = require('readline');
 const natural = require('natural');
 
 const classifier = new natural.BayesClassifier();
-const fileStream = fs.createReadStream('./text-models/data.jsonl'); // 416809
+const fileStream = fs.createReadStream('./data/training.jsonl'); // 416809
 
 const mood = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
 
@@ -33,7 +33,7 @@ rl.on('close', () => {
     // console.time()
     // console.log("Training Started")
     // classifier.train();
-    classifier.save("text-emotion-model-416k-chunk.json")
+    classifier.save("./model/text-emotion-model-416k-chunk.json")
     console.log("Succesfully Trained")
     // console.timeEnd()
     // console.log('Finished reading the file.');

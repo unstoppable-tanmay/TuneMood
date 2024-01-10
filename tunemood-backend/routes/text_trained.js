@@ -22,7 +22,7 @@ textTrainedRoute.route('/').post(async function (req, res, next) {
         const model = await init_text_analysis_model(path.resolve(__dirname, '../text/model/text-emotion-model-416k-chunk.json'))
 
         const ans = get_mood_data_form_text(model, req.body.data)
-        csv.mapFile('../audio_file.csv', function (err, data) {
+        csv.mapFile('./audio_file.csv', function (err, data) {
             res.status(200).send(data.filter((ele) => ele.mood == text_mapping(ans)));
         });
 
